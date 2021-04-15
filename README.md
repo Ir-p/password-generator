@@ -5,39 +5,16 @@ One Paragraph of project description goes here
 
 * clone me, or fork me
 * 🌎 live at: [github pages] (https://ir-p.github.io/password-generator/)
-### Prerequisites
 
-What things you need to install the software and how to install them
 
-```
-Give examples
-```
+## Deployment
+* just deploy, no other actions needed
 
-### Installing
+## Build With 
 
-A step by step series of examples that tell you how to get a development env running
+* [javascript] (https://developer.mozilla.org/en-US/docs/Web/JavaScript) - logic 
 
-Say what the step will be
+## Author
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+## Acknowledgements
+* **Billie Thompson** - *README template* - [PurpleBooth](https://github.com/PurpleBooth)
