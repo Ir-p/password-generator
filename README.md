@@ -6,6 +6,7 @@ One Paragraph of project description goes here
 * clone me, or fork me
 * 🌎 live at: [github pages] (https://ir-p.github.io/password-generator/)
 
+* Screen shot of the deployed app: ![Screen Shot Of The Deployed App](Screen-shot.png)
 
 ## Deployment
 * just deploy, no other actions needed
