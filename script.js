@@ -1,6 +1,16 @@
 // Array of numberic characters to be included in password
 var numericCharacters = [
-  '0','1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  '0',
+  '1', 
+  '2', 
+  '3', 
+  '4', 
+  '5', 
+  '6', 
+  '7', 
+  '8', 
+  '9'
+];
 
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
@@ -86,16 +96,16 @@ var specialCharacters = [
   '@',
   '[',
   ']',
-  '\\',
   '^',
   '_',
   '{',
   '}',
   '|',
   '~'
-]
+];
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+
 
 function getUserOptions() {
   // set variables for options
@@ -105,7 +115,7 @@ function getUserOptions() {
   var specialChosen = false;
   var lengthChosen;
 
-  lengthChosen = prompt("How would you like your password to be?");
+  lengthChosen = prompt("How long would you like your password to be?");
   //ask for length choice
   lengthChosen = parseInt(lengthChosen);
 
@@ -113,7 +123,6 @@ function getUserOptions() {
     //at least one type selected
     if (lengthChosen < 8 || lengthChosen > 128) {
       alert ("Please provide a number between 8 and 128.");
-      return;
     }
   // ask for lowercase
   lowerCaseChosen = confirm("Would you like to use lowercase letters in your password?");
@@ -127,25 +136,25 @@ function getUserOptions() {
   //TODO: check for at least one special/number upper/lower (that not all of)
   if (lowerCaseChosen === false && 
     upperCaseChosen === false && 
-    numericChosen === false &&
-    specialChosen === false) {
-    alert ('Please select one special character class (upper/lower/special/number.')
+    numericCaseChosen === false &&
+    specialCaseChosen === false) {
+    alert ("Please select one special character from upper/lower/special/number class.");
   }
 
     //build options
   var userOptions = {
     lowerCaseChosen: lowerCaseChosen,
     upperCaseChosen: upperCaseChosen,
-    numericChosen: numericChosen, 
-    specialChosen: specialChosen,
+    numericCaseChosen: numericCaseChosen, 
+    specialCaseChosen: specialCaseChosen,
     lengthChosen: lengthChosen, 
   };
   //return user options
-  return password;
+  return userOptions;
 }
 
-function getRandomFromLength (length) {
-  return Math.floor(Math.random()* arr.length)
+function getRandomFromLength(arr) {
+  return Math.floor(Math.random()* arr.length);
 }
 function generatePassword () {
   var passwordArray = [];
@@ -180,17 +189,17 @@ function generatePassword () {
     // add to must haves 1 numeric character
     mustHaveCharacters.push(numericCharacters[getRandomFromLength(numericCharacters)])
   }
-  
+  console.log('canHaveCharacters: ', canHaveCharacters)
   // loop through the lengthChosen
   for (let currIndx = 0; currIndx < userOptions.lengthChosen; currIndx++) {
     //add a random character to the passwordArray from the possible characters
-    console.log(passwordArray)
+    console.log('method:', canHaveCharacters[getRandomFromLength(canHaveCharacters)])
     passwordArray.push(canHaveCharacters[getRandomFromLength(canHaveCharacters)]);
   }
 
     //loop through must haves and replace a character in the passowrdArray
     for (let i = 0; i < mustHaveCharacters.length; i++) {
-      passowrd[i] = mustHaveCharacters[i];
+      password[i] = mustHaveCharacters[i];
     }
 
     // passwordArray to string (join method)
@@ -201,6 +210,7 @@ function generatePassword () {
 }
 // Write password to the #password input
 function writePassword() {
+  console.log (writePassword)
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
