@@ -202,13 +202,13 @@ function generatePassword() {
     // Add to must haves 1 special character
     mustHaveCharacters.push(getRandom(specialCharacters));
   }
-  console.log('canHaveCharacters: ', canHaveCharacters)
+ 
   // Loop through the lengthChosen and add a random character to the passwordArray from the possible characters
   for (let currIndx = 0; currIndx < userOptions.lengthChosen; currIndx++) {
-    console.log('method:', canHaveCharacters[getRandom(canHaveCharacters)])
+
     passwordArray.push(canHaveCharacters[getRandom(canHaveCharacters)]);
   }
-  console.log(passwordArray)
+
   // Loop through must haves and replace a character in the passowrdArray
   for (var i = 0; i < mustHaveCharacters.length; i++) {
     password[i] = mustHaveCharacters[i];
