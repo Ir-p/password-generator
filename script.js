@@ -101,47 +101,48 @@ var specialCharacters = [
   '{',
   '}',
   '|',
-  '~'
+  '~',
+  '\\'
 ];
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-
+// To set a function for user password options
 function getUserOptions() {
-  // set variables for options
+  // To set variables for options
   var lowerCaseChosen = false;
   var upperCaseChosen = false;
-  var numericChosen = false;
-  var specialChosen = false;
+  var numericCaseChosen = false;
+  var specialCaseChosen = false;
   var lengthChosen;
 
+  // To ask for length choice
   lengthChosen = prompt("How long would you like your password to be?");
-  //ask for length choice
   lengthChosen = parseInt(lengthChosen);
 
-  // validation
-    //at least one type selected
+    // Conditional statement to check if the chosen number of characters is between 8 and 128.
     if (lengthChosen < 8 || lengthChosen > 128) {
       alert ("Please provide a number between 8 and 128.");
     }
-  // ask for lowercase
+  // Ask for a lowercase letter
   lowerCaseChosen = confirm("Would you like to use lowercase letters in your password?");
-  // ask for uppercase
+  // Ask for an uppercase letter
   upperCaseChosen = confirm("Would you like to use uppercase letters in your password?");
-  // ask for numeric character
+  // Ask for a numeric character
   numericCaseChosen = confirm("Would you like to use numeric characters in your password?");
-  // ask for special character
+  // Ask for a special character
   specialCaseChosen = confirm("Would you like to use speical characters in your password?");
  
-  //TODO: check for at least one special/number upper/lower (that not all of)
+  // Conditional statement to check if at least one number, uppercase, lowercase, and special characters are included in the password.
   if (lowerCaseChosen === false && 
     upperCaseChosen === false && 
     numericCaseChosen === false &&
     specialCaseChosen === false) {
-    alert ("Please select one special character from upper/lower/special/number class.");
+    alert ("Please select at least one number, uppercase, lowercase or special character.");
+    return;
   }
 
-    //build options
+  // Build user options
   var userOptions = {
     lowerCaseChosen: lowerCaseChosen,
     upperCaseChosen: upperCaseChosen,
@@ -149,7 +150,7 @@ function getUserOptions() {
     specialCaseChosen: specialCaseChosen,
     lengthChosen: lengthChosen, 
   };
-  //return user options
+  // Return user options
   return userOptions;
 }
 
@@ -163,51 +164,50 @@ function generatePassword () {
   var userOptions = getUserOptions();
 
   if (userOptions.upperCaseChosen) {
-    // add to possible characters
+    // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(upperCasedCharacters)
-    // add to must haves 1 uppercase letter
+    // Add to must haves 1 uppercase letter
     mustHaveCharacters.push(upperCasedCharacters[getRandomFromLength(upperCasedCharacters)])
   }
 
   if (userOptions.lowerCaseChosen) {
-    // add to possible characters
+    // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(lowerCasedCharacters)
-    // add to must haves 1 lowercase letter
+    // Add to must haves 1 lowercase letter
     mustHaveCharacters.push(lowerCasedCharacters[getRandomFromLength(lowerCasedCharacters)])
   }
 
   if (userOptions.specialCaseChosen) {
-    // add to possible characters
+    // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(specialCharacters)
-    // add to must haves 1 special character
+    // Add to must haves 1 special character
     mustHaveCharacters.push(specialCharacters[getRandomFromLength(specialCharacters)])
   }
   
   if (userOptions.numericCaseChosen) {
-    // add to possible characters
+    // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(numericCharacters)
-    // add to must haves 1 numeric character
+    // Add to must haves 1 numeric character
     mustHaveCharacters.push(numericCharacters[getRandomFromLength(numericCharacters)])
   }
-  console.log('canHaveCharacters: ', canHaveCharacters)
-  // loop through the lengthChosen
+
+  // Loop through the lengthChosen
   for (let currIndx = 0; currIndx < userOptions.lengthChosen; currIndx++) {
-    //add a random character to the passwordArray from the possible characters
-    console.log('method:', canHaveCharacters[getRandomFromLength(canHaveCharacters)])
+    // Add a random character to the passwordArray from the possible characters
     passwordArray.push(canHaveCharacters[getRandomFromLength(canHaveCharacters)]);
   }
 
-    //loop through must haves and replace a character in the passowrdArray
+    // Loop through must haves and replace a character in the passowrdArray
     for (let i = 0; i < mustHaveCharacters.length; i++) {
       password[i] = mustHaveCharacters[i];
     }
 
-    // passwordArray to string (join method)
+    // PasswordArray to string (join method)
     passwordArray = passwordArray.join("");
 
     return passwordArray;
-  
 }
+
 // Write password to the #password input
 function writePassword() {
   console.log (writePassword)
