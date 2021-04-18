@@ -1,17 +1,3 @@
-// Array of numberic characters to be included in password
-var numericCharacters = [
-  '0',
-  '1', 
-  '2', 
-  '3', 
-  '4', 
-  '5', 
-  '6', 
-  '7', 
-  '8', 
-  '9'
-];
-
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
   'A',
@@ -41,6 +27,7 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
+
 // Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
   'a',
@@ -70,6 +57,21 @@ var lowerCasedCharacters = [
   'y',
   'z'
 ];
+
+// Array of numberic characters to be included in password
+var numericCharacters = [
+  '0',
+  '1', 
+  '2', 
+  '3', 
+  '4', 
+  '5', 
+  '6', 
+  '7', 
+  '8', 
+  '9'
+];
+
 // Array of special characters to be included in password
 var specialCharacters = [
   '!',
@@ -104,118 +106,122 @@ var specialCharacters = [
   '~',
   '\\'
 ];
-// Assignment Code
 
 // To set a function for user password options
 function getUserOptions() {
-  // To set variables for options
-  var lowerCaseChosen = false;
-  var upperCaseChosen = false;
-  var numericCaseChosen = false;
-  var specialCaseChosen = false;
-  var lengthChosen;
+  // To ask for length choice as a string
+  var lengthChosen = parseInt(
+    prompt('How many characters would you like your password to include?')
+  );
+  
+  // If-statement to check if the value was entered as a number and an alert to prompt the password length to be entered as a number.
+  if (isNaN(lengthChosen) === true) {
+    alert('Please enter the password length as a number.');
+    return;
+  }
 
-  // To ask for length choice
-  lengthChosen = prompt("How long would you like your password to be?");
-  lengthChosen = parseInt(lengthChosen);
+  // If-statement to check if the chosen password length is between 8 and 128 and an alert to prompt the user to enter the password as a number between 8 and 128. 
+  if (lengthChosen < 8 || lengthChosen > 128) {
+    alert ('Please provide a number between 8 and 128.');
+    return;
+  }
 
-    // Conditional statement to check if the chosen number of characters is between 8 and 128.
-    if (lengthChosen < 8 || lengthChosen > 128) {
-      alert ("Please provide a number between 8 and 128.");
-    }
-  // Ask for a lowercase letter
-  lowerCaseChosen = confirm("Would you like to use lowercase letters in your password?");
   // Ask for an uppercase letter
-  upperCaseChosen = confirm("Would you like to use uppercase letters in your password?");
+  var upperCaseChosen = confirm("Would you like to use uppercase letters in your password?");
+
+  // Ask for a lowercase letter
+  var lowerCaseChosen = confirm("Would you like to use lowercase letters in your password?");
+
   // Ask for a numeric character
-  numericCaseChosen = confirm("Would you like to use numeric characters in your password?");
+  var numericCaseChosen = confirm("Would you like to use numeric characters in your password?");
+
   // Ask for a special character
-  specialCaseChosen = confirm("Would you like to use speical characters in your password?");
+  var specialCaseChosen = confirm("Would you like to use speical characters in your password?");
  
   // Conditional statement to check if at least one number, uppercase, lowercase, and special characters are included in the password.
-  if (lowerCaseChosen === false && 
+  if (
     upperCaseChosen === false && 
+    lowerCaseChosen === false && 
     numericCaseChosen === false &&
-    specialCaseChosen === false) {
+    specialCaseChosen === false
+  ) {
     alert ("Please select at least one number, uppercase, lowercase or special character.");
     return;
   }
 
   // Build user options
   var userOptions = {
-    lowerCaseChosen: lowerCaseChosen,
+    lengthChosen: lengthChosen,
     upperCaseChosen: upperCaseChosen,
+    lowerCaseChosen: lowerCaseChosen,
     numericCaseChosen: numericCaseChosen, 
     specialCaseChosen: specialCaseChosen,
-    lengthChosen: lengthChosen, 
   };
+
   // Return user options
   return userOptions;
 }
 
 // To get a random element from an array using the function
-function getRandomFromLength(arr) {
-  console.log({getRandomFromLength})
-  var randIndex = Math.floor(Math.random() * arr.length);
-  var randElement = arr[randIndex];
-
-  return randElement;
+function getRandom(arr) {
+  return Math.floor(Math.random() * arr.length);
 }
 
 // To generate a password with user input
-function generatePassword () {
+function generatePassword() {
+  var userOptions = getUserOptions();
+  // To set variables for concatenated password, selected "must have characters" array, and selected "can have charactesr" array. 
   var passwordArray = [];
   var mustHaveCharacters = [];
   var canHaveCharacters = [];
-  var userOptions = getUserOptions();
 
   if (userOptions.upperCaseChosen) {
     // Add to possible characters
-    canHaveCharacters = canHaveCharacters.concat(upperCasedCharacters)
+    canHaveCharacters = canHaveCharacters.concat(upperCasedCharacters);
     // Add to must haves 1 uppercase letter
-    mustHaveCharacters.push(getRandomFromLength(upperCasedCharacters));
+    mustHaveCharacters.push(getRandom(upperCasedCharacters));
   }
 
   if (userOptions.lowerCaseChosen) {
     // Add to possible characters
-    canHaveCharacters = canHaveCharacters.concat(lowerCasedCharacters)
+    canHaveCharacters = canHaveCharacters.concat(lowerCasedCharacters);
     // Add to must haves 1 lowercase letter
-    mustHaveCharacters.push(getRandomFromLength(lowerCasedCharacters));
+    mustHaveCharacters.push(getRandom(lowerCasedCharacters));
+  }
+
+  if (userOptions.numericCaseChosen) {
+    // Add to possible characters
+    canHaveCharacters = canHaveCharacters.concat(numericCharacters);
+    // Add to must haves 1 numeric character
+    mustHaveCharacters.push(getRandom(numericCharacters));
   }
 
   if (userOptions.specialCaseChosen) {
     // Add to possible characters
-    canHaveCharacters = canHaveCharacters.concat(specialCharacters)
+    canHaveCharacters = canHaveCharacters.concat(specialCharacters);
     // Add to must haves 1 special character
-    mustHaveCharacters.push(getRandomFromLength(specialCharacters));
+    mustHaveCharacters.push(getRandom(specialCharacters));
   }
-  
-  if (userOptions.numericCaseChosen) {
-    // Add to possible characters
-    canHaveCharacters = canHaveCharacters.concat(numericCharacters)
-    // Add to must haves 1 numeric character
-    mustHaveCharacters.push(getRandomFromLength(numericCharacters));
+  console.log('canHaveCharacters: ', canHaveCharacters)
+  // Loop through the lengthChosen and add a random character to the passwordArray from the possible characters
+  for (let currIndx = 0; currIndx < userOptions.lengthChosen; currIndx++) {
+    console.log('method:', canHaveCharacters[getRandom(canHaveCharacters)])
+    passwordArray.push(canHaveCharacters[getRandom(canHaveCharacters)]);
   }
-
-  // Loop through the lengthChosen
-  for (var i = 0; i < userOptions.lengthChosen; i++) {
-    // Add a random character to the passwordArray from the possible characters
-    var canHaveCharacters = getRandomFromLength(canHaveCharacters);
-
-    passwordArray.push(canHaveCharacters);
+  console.log(passwordArray)
+  // Loop through must haves and replace a character in the passowrdArray
+  for (var i = 0; i < mustHaveCharacters.length; i++) {
+    password[i] = mustHaveCharacters[i];
   }
 
-    // Loop through must haves and replace a character in the passowrdArray
-    for (var i = 0; i < mustHaveCharacters.length; i++) {
-      password[i] = mustHaveCharacters[i];
-    }
+  // PasswordArray to string (join method)
+  passwordArray = passwordArray.join("");
+  return passwordArray;
 
-    // PasswordArray to string (join method)
-    return passwordArray.join('');
 }
 
 // Connect to the "generate" element
-var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
