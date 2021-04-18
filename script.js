@@ -105,7 +105,6 @@ var specialCharacters = [
   '\\'
 ];
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
 
 // To set a function for user password options
 function getUserOptions() {
@@ -154,9 +153,16 @@ function getUserOptions() {
   return userOptions;
 }
 
+// To get a random element from an array using the function
 function getRandomFromLength(arr) {
-  return Math.floor(Math.random()* arr.length);
+  console.log({getRandomFromLength})
+  var randIndex = Math.floor(Math.random() * arr.length);
+  var randElement = arr[randIndex];
+
+  return randElement;
 }
+
+// To generate a password with user input
 function generatePassword () {
   var passwordArray = [];
   var mustHaveCharacters = [];
@@ -167,52 +173,54 @@ function generatePassword () {
     // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(upperCasedCharacters)
     // Add to must haves 1 uppercase letter
-    mustHaveCharacters.push(upperCasedCharacters[getRandomFromLength(upperCasedCharacters)])
+    mustHaveCharacters.push(getRandomFromLength(upperCasedCharacters));
   }
 
   if (userOptions.lowerCaseChosen) {
     // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(lowerCasedCharacters)
     // Add to must haves 1 lowercase letter
-    mustHaveCharacters.push(lowerCasedCharacters[getRandomFromLength(lowerCasedCharacters)])
+    mustHaveCharacters.push(getRandomFromLength(lowerCasedCharacters));
   }
 
   if (userOptions.specialCaseChosen) {
     // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(specialCharacters)
     // Add to must haves 1 special character
-    mustHaveCharacters.push(specialCharacters[getRandomFromLength(specialCharacters)])
+    mustHaveCharacters.push(getRandomFromLength(specialCharacters));
   }
   
   if (userOptions.numericCaseChosen) {
     // Add to possible characters
     canHaveCharacters = canHaveCharacters.concat(numericCharacters)
     // Add to must haves 1 numeric character
-    mustHaveCharacters.push(numericCharacters[getRandomFromLength(numericCharacters)])
+    mustHaveCharacters.push(getRandomFromLength(numericCharacters));
   }
 
   // Loop through the lengthChosen
-  for (let currIndx = 0; currIndx < userOptions.lengthChosen; currIndx++) {
+  for (var i = 0; i < userOptions.lengthChosen; i++) {
     // Add a random character to the passwordArray from the possible characters
-    passwordArray.push(canHaveCharacters[getRandomFromLength(canHaveCharacters)]);
+    var canHaveCharacters = getRandomFromLength(canHaveCharacters);
+
+    passwordArray.push(canHaveCharacters);
   }
 
     // Loop through must haves and replace a character in the passowrdArray
-    for (let i = 0; i < mustHaveCharacters.length; i++) {
+    for (var i = 0; i < mustHaveCharacters.length; i++) {
       password[i] = mustHaveCharacters[i];
     }
 
     // PasswordArray to string (join method)
-    passwordArray = passwordArray.join("");
-
-    return passwordArray;
+    return passwordArray.join('');
 }
+
+// Connect to the "generate" element
+var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  console.log (writePassword)
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
 
